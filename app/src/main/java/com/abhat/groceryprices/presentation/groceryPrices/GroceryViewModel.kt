@@ -21,14 +21,14 @@ class GroceryViewModel @Inject constructor(
         result.value?.let {
             // do nothing
         } ?: run {
-            groceryPricesRepository.fetchGroceryPrices()
+            compositeDisposable.add(groceryPricesRepository.fetchGroceryPrices()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe({
                         result.value = it
                     }, {
                         result.value = listOf()
-                    })
+                    }))
         }
     }
 
