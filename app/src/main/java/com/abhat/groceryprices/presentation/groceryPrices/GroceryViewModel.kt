@@ -15,11 +15,11 @@ class GroceryViewModel @Inject constructor(
         private val groceryPricesRepository: GroceryPricesRepositoryImpl): ViewModel(), LifecycleObserver {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private var result: MutableLiveData<List<Grocery>> = MutableLiveData()
+    var result: MutableLiveData<List<Grocery>> = MutableLiveData()
 
     fun fetchGroceryPrices() {
         result.value?.let {
-            // do nothing
+            // do nothing if we already have result
         } ?: run {
             compositeDisposable.add(groceryPricesRepository.fetchGroceryPrices()
                     .observeOn(AndroidSchedulers.mainThread())
